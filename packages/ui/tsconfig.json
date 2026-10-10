@@ -1,9 +1,9 @@
 {
-  "extends": "@repo/typescript-config/react-library.json",
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@mindora-ai/typescript-config/react-library.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "strictNullChecks": true
+    "noEmit": true
   },
-  "include": ["src"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "dist"]
 }
