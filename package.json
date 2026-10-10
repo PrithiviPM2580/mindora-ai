@@ -23,7 +23,7 @@
     "typescript": "7.0.2"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,jsonc}": "biome check --write"
+    "*.{js,jsx,ts,tsx,json,jsonc}": "biome check --write --error-on-warnings"
   },
   "engines": {
     "node": ">=24"

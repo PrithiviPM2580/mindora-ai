@@ -12,7 +12,8 @@
       "!!**/build",
       "!!**/.next",
       "!!**/coverage",
-      "!!**/.turbo"
+      "!!**/.turbo",
+      "!!**/routeTree.gen.ts"
     ]
   },
   "formatter": {
