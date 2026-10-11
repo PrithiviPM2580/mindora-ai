@@ -1,1 +1,6 @@
-console.log("Hello via Bun!");
+//! ============================================================
+//! 🚪 Root Index — Application entry point
+//! ============================================================
+
+import "dotenv/config";
+import "./server";
