@@ -59,7 +59,6 @@ const userSchema = new Schema<IUser>(
       default: null,
       trim: true,
       sparse: true,
-      unique: true,
     },
     avatar: {
       type: String,
@@ -118,9 +117,8 @@ userSchema.index(
 //--  Pre-save Hook : Hash the password before saving
 //-- ------------------------------------------------------
 userSchema.pre("save", async function () {
-  if (!this.isModified("passwordHash")) return;
+  if (!this.isModified("passwordHash") || !this.passwordHash) return;
 
-  if (!this.passwordHash) return;
   this.passwordHash = await hashValue(this.passwordHash);
 });
 

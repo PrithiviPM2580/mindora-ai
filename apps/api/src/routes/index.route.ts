@@ -7,9 +7,13 @@ import { Router } from "express";
 import status from "http-status";
 import mongoose from "mongoose";
 import { appConfig } from "@/config/app.config";
+import authRouter from "@/modules/auth/auth.route";
 import { logger } from "@/utils/logger.util";
 import { sendResponse } from "@/utils/send-response.util";
 
+//-- ------------------------------------------------------
+//--  Router instance
+//-- ------------------------------------------------------
 const router = Router();
 
 //-- ------------------------------------------------------
@@ -85,5 +89,10 @@ router.route("/health").get((_req: Request, res: Response, next: NextFunction) =
     next(error);
   }
 });
+
+//-- ------------------------------------------------------
+//--  Auth Route
+//-- ------------------------------------------------------
+router.use("/api/v1/auth", authRouter);
 
 export default router;
