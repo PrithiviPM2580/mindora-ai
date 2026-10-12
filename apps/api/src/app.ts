@@ -4,6 +4,7 @@
 
 import express, { type Express } from "express";
 import { errorHandler } from "@/middlewares/error-handler.middleware";
+import router from "@/routes/index.route";
 
 //-- ------------------------------------------------------
 //--  App : Application instance
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 //-- ------------------------------------------------------
 //--  Router : Setup routes
 //-- ------------------------------------------------------
+app.use(router);
 
 //-- ------------------------------------------------------
 //--  Error Handler : Setup global error handler
