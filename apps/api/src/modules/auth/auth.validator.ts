@@ -3,14 +3,16 @@
 //! ============================================================
 
 import { validateRequest } from "@/middlewares/validate-request.middleware";
-import { registerSchema } from "./auth.schema";
+import { loginSchema, registerSchema } from "./auth.schema";
 
 //> -----------------------------------------------------------------
 //> Fn:Auth Validator — Desc: Validates the request body for user registration
 //> ------------------------------------------------------------------
 export const registerValidator = validateRequest(registerSchema);
+export const loginValidator = validateRequest(loginSchema);
 
 //@ -----------------------------------------------------------------
 //@ Type:Auth Validator — Desc: Type for the auth validator
 //@ ------------------------------------------------------------------
 export type RegisterValidator = typeof registerSchema;
+export type LoginValidator = typeof loginSchema;

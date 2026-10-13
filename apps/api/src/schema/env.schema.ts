@@ -15,4 +15,5 @@ export const envSchema = z.object({
   MONGO_URI: z.string("Invalid MongoDB URI").min(1, "MongoDB URI is required"),
   CSRF_SECRET: z.string().min(1, "CSRF secret is required"),
   APP_VERSION: z.string().min(1, "Application version is required"),
+  JWT_SECRET: z.string().min(1, "JWT secret is required"),
 });

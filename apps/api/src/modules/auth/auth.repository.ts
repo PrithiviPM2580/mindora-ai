@@ -2,7 +2,7 @@
 //! 💾 Auth Repository — Data access layer for auth
 //! ============================================================
 
-import User, { type IUser } from "./auth.model";
+import User, { type IUser, type UserDocument } from "./auth.model";
 import type { CreateUserInput } from "./auth.type";
 
 //> -----------------------------------------------------------------------
@@ -20,4 +20,18 @@ export const create = async (userData: CreateUserInput): Promise<IUser> => {
     ...userData,
     passwordHash: userData.password,
   });
+};
+
+//> -----------------------------------------------------------------
+//> Fn:findByEmail() — Desc: Find a user by email
+//> -----------------------------------------------------------------
+export const findByEmail = async (email: string): Promise<IUser | null> => {
+  return User.findOne({ email });
+};
+
+//> -----------------------------------------------------------------
+//> Fn:findById() — Desc: Find a user by ID
+//> -----------------------------------------------------------------
+export const findById = async (id: string): Promise<UserDocument | null> => {
+  return User.findById(id);
 };

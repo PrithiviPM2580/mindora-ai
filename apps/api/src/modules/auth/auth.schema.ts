@@ -25,6 +25,17 @@ export const registerSchema = {
 };
 
 //@ -----------------------------------------------------------------
+//@ Obj:loginSchema — Desc: Schema for validating user login data
+//@ ----------------------------------------------------------------------
+export const loginSchema = {
+  body: z.object({
+    email: z.email("Invalid email address").trim(),
+    password: z.string().min(1, "Password is required").trim(),
+  }),
+};
+
+//@ -----------------------------------------------------------------
 //@ Type:Auth Schema — Desc: Type for the auth schema
 //@ -----------------------------------------------------------------
 export type RegisterInput = InferSchemas<typeof registerSchema>;
+export type LoginInput = InferSchemas<typeof loginSchema>;

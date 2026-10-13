@@ -6,7 +6,7 @@ import { ApiError } from "@/utils/api-error.util";
 import { logger } from "@/utils/logger.util";
 import * as authRepository from "./auth.repository";
 import type { RegisterInput } from "./auth.schema";
-import type { PublicUser } from "./auth.type";
+import type { AuthenticatedUser, PublicUser } from "./auth.type";
 
 //> -----------------------------------------------------------------
 //> Fn:register() — Desc: Register a new user
@@ -36,6 +36,52 @@ export const register = async (input: RegisterInput["body"]): Promise<PublicUser
 
   // Info: Log the successful user creation
   return {
+    name: user.name,
+    email: user.email,
+  };
+};
+
+export const validateUser = async (
+  email: string,
+  password: string,
+): Promise<AuthenticatedUser | null> => {
+  const user = await authRepository.findByEmail(email);
+
+  if (!user) {
+    logger.error(`User with email ${email} not found`, {
+      label: "Auth_Service",
+    });
+    return null;
+  }
+
+  const isPasswordValid = await user.comparePassword(password);
+
+  if (!isPasswordValid) {
+    logger.error(`Invalid password for user with email ${email}`, {
+      label: "Auth_Service",
+    });
+    return null;
+  }
+
+  return {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+  };
+};
+
+export const getAuthentictedUser = async (userId: string): Promise<AuthenticatedUser | null> => {
+  const user = await authRepository.findById(userId);
+
+  if (!user) {
+    logger.error(`User with ID ${userId} not found`, {
+      label: "Auth_Service",
+    });
+    return null;
+  }
+
+  return {
+    id: user.id,
     name: user.name,
     email: user.email,
   };

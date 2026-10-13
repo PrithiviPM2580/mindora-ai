@@ -2,7 +2,9 @@
 //! 🚀 App — Application setup and configuration
 //! ============================================================
 
+import cookieParser from "cookie-parser";
 import express, { type Express } from "express";
+import passport from "@/config/passport.config";
 import { errorHandler } from "@/middlewares/error-handler.middleware";
 import router from "@/routes/index.route";
 
@@ -16,7 +18,8 @@ const app: Express = express();
 //-- ------------------------------------------------------
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cookieParser());
+app.use(passport.initialize());
 //-- ------------------------------------------------------
 //--  Router : Setup routes
 //-- ------------------------------------------------------

@@ -5,37 +5,25 @@
 import mongoose, { Schema } from "mongoose";
 import { compareValue, hashValue } from "@/utils/bcrypt.util";
 
-//@ -----------------------------------------------------------------
-//@ Interface:Preferences — Desc: Interface for user preferences
-//@ ---------------------------------------------------------------------
-interface Preferences {
-  theme: "light" | "dark" | "system";
-  language: "en" | "es";
-}
-
-//@ -----------------------------------------------------------------
-//@ Interface:IUser — Desc: Interface for the User model
-//@ -----------------------------------------------------------------
-export interface IUser {
+export interface IUser extends mongoose.Document {
+  id: string;
   name: string;
   email: string;
   passwordHash: string | null;
   googleId: string | null;
   avatar: string | null;
   authProvider: "local" | "google";
-  preferences: Preferences;
   isActive: boolean;
   lastLogin: Date | null;
-  createdAt: Date;
-  updatedAt: Date;
-
   comparePassword(password: string): Promise<boolean>;
 }
+
+export type UserDocument = IUser;
 
 //@ -----------------------------------------------------------------
 //@ Obj:userSchema — Desc: Schema for the User model
 //@ -----------------------------------------------------------------
-const userSchema = new Schema<IUser>(
+const userSchema = new Schema(
   {
     name: {
       type: String,
@@ -67,19 +55,19 @@ const userSchema = new Schema<IUser>(
     },
     authProvider: {
       type: String,
-      enum: ["local", "google"],
+      enum: ["local", "google"] as const,
       default: "local",
       required: true,
     },
     preferences: {
       theme: {
         type: String,
-        enum: ["light", "dark", "system"],
+        enum: ["light", "dark", "system"] as const,
         default: "system",
       },
       language: {
         type: String,
-        enum: ["en", "es"],
+        enum: ["en", "es"] as const,
         default: "en",
       },
     },
